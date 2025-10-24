@@ -396,180 +396,377 @@
       }
     }
 
-    function updateSubmissionTable(){
-      // Clear existing table rows
-      submissionTableBody.innerHTML = '';
+    // function updateSubmissionTable(){
+    //   // Clear existing table rows
+    //   submissionTableBody.innerHTML = '';
       
-      // Group submissions by sector
-      const sectorGroups = {};
-      submissions.forEach((submission, index) => {
-        const sector = submission.sector;
-        if (!sectorGroups[sector]) {
-          sectorGroups[sector] = [];
-        }
-        // Preserve stable index for edit actions
-        sectorGroups[sector].push({ ...submission, __idx: index });
-      });
+    //   // Group submissions by sector
+    //   const sectorGroups = {};
+    //   submissions.forEach((submission, index) => {
+    //     const sector = submission.sector;
+    //     if (!sectorGroups[sector]) {
+    //       sectorGroups[sector] = [];
+    //     }
+    //     // Preserve stable index for edit actions
+    //     sectorGroups[sector].push({ ...submission, __idx: index });
+    //   });
       
-      // Create rows for each sector group with merged cells
-      let rowNumber = 1;
-      Object.keys(sectorGroups).forEach(sector => {
-        const group = sectorGroups[sector];
+    //   // Create rows for each sector group with merged cells
+    //   let rowNumber = 1;
+    //   Object.keys(sectorGroups).forEach(sector => {
+    //     const group = sectorGroups[sector];
         
-        group.forEach((item, index) => {
-          const row = document.createElement('tr');
-          // Attach stable index for reference
-          row.setAttribute('data-index', String(item.__idx));
+    //     group.forEach((item, index) => {
+    //       const row = document.createElement('tr');
+    //       // Attach stable index for reference
+    //       row.setAttribute('data-index', String(item.__idx));
           
-          // S.No cell - only show on first row of each sector group
-          const sNoCell = document.createElement('td');
-          sNoCell.style.padding = '8px';
-          sNoCell.style.borderBottom = '1px solid var(--border)';
-          sNoCell.style.textAlign = 'center';
-          sNoCell.style.verticalAlign = 'top';
-          if (index === 0) {
-            sNoCell.textContent = rowNumber;
-            sNoCell.rowSpan = group.length;
-          } else {
-            sNoCell.style.display = 'none'; // Hide for subsequent rows
-          }
-          row.appendChild(sNoCell);
+    //       // S.No cell - only show on first row of each sector group
+    //       const sNoCell = document.createElement('td');
+    //       sNoCell.style.padding = '8px';
+    //       sNoCell.style.borderBottom = '1px solid var(--border)';
+    //       sNoCell.style.textAlign = 'center';
+    //       sNoCell.style.verticalAlign = 'top';
+    //       if (index === 0) {
+    //         sNoCell.textContent = rowNumber;
+    //         sNoCell.rowSpan = group.length;
+    //       } else {
+    //         sNoCell.style.display = 'none'; // Hide for subsequent rows
+    //       }
+    //       row.appendChild(sNoCell);
           
-          // Sector cell - only show on first row of each sector group
-          const sectorCell = document.createElement('td');
-          sectorCell.style.padding = '8px';
-          sectorCell.style.borderBottom = '1px solid var(--border)';
-          sectorCell.style.verticalAlign = 'top';
-          if (index === 0) {
-            sectorCell.textContent = sector;
-            sectorCell.rowSpan = group.length;
-          } else {
-            sectorCell.style.display = 'none'; // Hide for subsequent rows
-          }
-          row.appendChild(sectorCell);
+    //       // Sector cell - only show on first row of each sector group
+    //       const sectorCell = document.createElement('td');
+    //       sectorCell.style.padding = '8px';
+    //       sectorCell.style.borderBottom = '1px solid var(--border)';
+    //       sectorCell.style.verticalAlign = 'top';
+    //       if (index === 0) {
+    //         sectorCell.textContent = sector;
+    //         sectorCell.rowSpan = group.length;
+    //       } else {
+    //         sectorCell.style.display = 'none'; // Hide for subsequent rows
+    //       }
+    //       row.appendChild(sectorCell);
           
-          // Proposal name
-          const proposalCell = document.createElement('td');
-          proposalCell.style.padding = '8px';
-          proposalCell.style.borderBottom = '1px solid var(--border)';
-          proposalCell.textContent = item.proposal;
-          row.appendChild(proposalCell);
+    //       // Proposal name
+    //       const proposalCell = document.createElement('td');
+    //       proposalCell.style.padding = '8px';
+    //       proposalCell.style.borderBottom = '1px solid var(--border)';
+    //       proposalCell.textContent = item.proposal;
+    //       row.appendChild(proposalCell);
           
-          // Estimated cost
-          const costCell = document.createElement('td');
-          costCell.style.padding = '8px';
-          costCell.style.borderBottom = '1px solid var(--border)';
-          costCell.style.textAlign = 'right';
-          costCell.textContent = fmtINR(Math.round(item.cost)).replace(/\s/g,' ');
-          row.appendChild(costCell);
+    //       // Estimated cost
+    //       const costCell = document.createElement('td');
+    //       costCell.style.padding = '8px';
+    //       costCell.style.borderBottom = '1px solid var(--border)';
+    //       costCell.style.textAlign = 'right';
+    //       costCell.textContent = fmtINR(Math.round(item.cost)).replace(/\s/g,' ');
+    //       row.appendChild(costCell);
           
-          // Locality
-          const localityCell = document.createElement('td');
-          localityCell.style.padding = '8px';
-          localityCell.style.borderBottom = '1px solid var(--border)';
-          localityCell.textContent = item.locality;
-          row.appendChild(localityCell);
+    //       // Locality
+    //       const localityCell = document.createElement('td');
+    //       localityCell.style.padding = '8px';
+    //       localityCell.style.borderBottom = '1px solid var(--border)';
+    //       localityCell.textContent = item.locality;
+    //       row.appendChild(localityCell);
           
-          // Priority
-          const priorityCell = document.createElement('td');
-          priorityCell.style.padding = '8px';
-          priorityCell.style.borderBottom = '1px solid var(--border)';
-          priorityCell.style.textAlign = 'center';
-          priorityCell.textContent = String(item.priority);
-          row.appendChild(priorityCell);
+    //       // Priority
+    //       const priorityCell = document.createElement('td');
+    //       priorityCell.style.padding = '8px';
+    //       priorityCell.style.borderBottom = '1px solid var(--border)';
+    //       priorityCell.style.textAlign = 'center';
+    //       priorityCell.textContent = String(item.priority);
+    //       row.appendChild(priorityCell);
           
-          // Work Image
-          const imageCell = document.createElement('td');
-          imageCell.style.padding = '8px';
-          imageCell.style.borderBottom = '1px solid var(--border)';
-          imageCell.style.textAlign = 'center';
-          if (item.workImage) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(item.workImage);
-            img.style.width = '50px';
-            img.style.height = '50px';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '4px';
-            img.style.cursor = 'pointer';
-            img.title = 'Click to view full size';
-            img.addEventListener('click', () => {
-              const modal = document.createElement('div');
-              modal.style.position = 'fixed';
-              modal.style.top = '0';
-              modal.style.left = '0';
-              modal.style.width = '100%';
-              modal.style.height = '100%';
-              modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
-              modal.style.display = 'flex';
-              modal.style.justifyContent = 'center';
-              modal.style.alignItems = 'center';
-              modal.style.zIndex = '1000';
-              modal.style.cursor = 'pointer';
+    //       // Work Image
+    //       const imageCell = document.createElement('td');
+    //       imageCell.style.padding = '8px';
+    //       imageCell.style.borderBottom = '1px solid var(--border)';
+    //       imageCell.style.textAlign = 'center';
+    //       if (item.workImage) {
+    //         const img = document.createElement('img');
+    //         img.src = URL.createObjectURL(item.workImage);
+    //         img.style.width = '50px';
+    //         img.style.height = '50px';
+    //         img.style.objectFit = 'cover';
+    //         img.style.borderRadius = '4px';
+    //         img.style.cursor = 'pointer';
+    //         img.title = 'Click to view full size';
+    //         img.addEventListener('click', () => {
+    //           const modal = document.createElement('div');
+    //           modal.style.position = 'fixed';
+    //           modal.style.top = '0';
+    //           modal.style.left = '0';
+    //           modal.style.width = '100%';
+    //           modal.style.height = '100%';
+    //           modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+    //           modal.style.display = 'flex';
+    //           modal.style.justifyContent = 'center';
+    //           modal.style.alignItems = 'center';
+    //           modal.style.zIndex = '1000';
+    //           modal.style.cursor = 'pointer';
               
-              const fullImg = document.createElement('img');
-              fullImg.src = img.src;
-              fullImg.style.maxWidth = '90%';
-              fullImg.style.maxHeight = '90%';
-              fullImg.style.borderRadius = '8px';
+    //           const fullImg = document.createElement('img');
+    //           fullImg.src = img.src;
+    //           fullImg.style.maxWidth = '90%';
+    //           fullImg.style.maxHeight = '90%';
+    //           fullImg.style.borderRadius = '8px';
               
-              modal.appendChild(fullImg);
-              document.body.appendChild(modal);
-              modal.addEventListener('click', () => {
-                document.body.removeChild(modal);
-              });
-            });
-            imageCell.appendChild(img);
-          } else {
-            imageCell.textContent = 'No image';
-            imageCell.style.color = '#64748b';
-          }
-          row.appendChild(imageCell);
+    //           modal.appendChild(fullImg);
+    //           document.body.appendChild(modal);
+    //           modal.addEventListener('click', () => {
+    //             document.body.removeChild(modal);
+    //           });
+    //         });
+    //         imageCell.appendChild(img);
+    //       } else {
+    //         imageCell.textContent = 'No image';
+    //         imageCell.style.color = '#64748b';
+    //       }
+    //       row.appendChild(imageCell);
           
-          // Detailed Report
-          const reportCell = document.createElement('td');
-          reportCell.style.padding = '8px';
-          reportCell.style.borderBottom = '1px solid var(--border)';
-          reportCell.style.textAlign = 'center';
-          if (item.detailedReport) {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(item.detailedReport);
-            link.target = '_blank';
-            link.textContent = 'View Report';
-            link.style.color = '#2563eb';
-            link.style.textDecoration = 'none';
-            link.style.fontSize = '12px';
-            reportCell.appendChild(link);
-          } else {
-            reportCell.textContent = 'No report';
-            reportCell.style.color = '#64748b';
-          }
-          row.appendChild(reportCell);
+    //       // Detailed Report
+    //       const reportCell = document.createElement('td');
+    //       reportCell.style.padding = '8px';
+    //       reportCell.style.borderBottom = '1px solid var(--border)';
+    //       reportCell.style.textAlign = 'center';
+    //       if (item.detailedReport) {
+    //         const link = document.createElement('a');
+    //         link.href = URL.createObjectURL(item.detailedReport);
+    //         link.target = '_blank';
+    //         link.textContent = 'View Report';
+    //         link.style.color = '#2563eb';
+    //         link.style.textDecoration = 'none';
+    //         link.style.fontSize = '12px';
+    //         reportCell.appendChild(link);
+    //       } else {
+    //         reportCell.textContent = 'No report';
+    //         reportCell.style.color = '#64748b';
+    //       }
+    //       row.appendChild(reportCell);
           
-          // Actions
-          const actionsCell = document.createElement('td');
-          actionsCell.style.padding = '8px';
-          actionsCell.style.borderBottom = '1px solid var(--border)';
-          actionsCell.style.textAlign = 'center';
+    //       // Actions
+    //       const actionsCell = document.createElement('td');
+    //       actionsCell.style.padding = '8px';
+    //       actionsCell.style.borderBottom = '1px solid var(--border)';
+    //       actionsCell.style.textAlign = 'center';
           
-          const editBtn = document.createElement('button');
-          editBtn.textContent = 'Edit';
-          editBtn.style.padding = '4px 8px';
-          editBtn.style.fontSize = '12px';
-          editBtn.style.backgroundColor = '#2563eb';
-          editBtn.style.color = 'white';
-          editBtn.style.border = 'none';
-          editBtn.style.borderRadius = '4px';
-          editBtn.style.cursor = 'pointer';
-          editBtn.addEventListener('click', () => editSubmission(item.__idx));
+    //       const editBtn = document.createElement('button');
+    //       editBtn.textContent = 'Edit';
+    //       editBtn.style.padding = '4px 8px';
+    //       editBtn.style.fontSize = '12px';
+    //       editBtn.style.backgroundColor = '#2563eb';
+    //       editBtn.style.color = 'white';
+    //       editBtn.style.border = 'none';
+    //       editBtn.style.borderRadius = '4px';
+    //       editBtn.style.cursor = 'pointer';
+    //       editBtn.addEventListener('click', () => editSubmission(item.__idx));
           
-          actionsCell.appendChild(editBtn);
-          row.appendChild(actionsCell);
+    //       actionsCell.appendChild(editBtn);
+    //       row.appendChild(actionsCell);
           
-          submissionTableBody.appendChild(row);
-        });
-        rowNumber++;
-      });
+    //       submissionTableBody.appendChild(row);
+    //     });
+    //     rowNumber++;
+    //   });
+    // }
+
+
+    function updateSubmissionTable() {
+  // Clear existing table rows
+  submissionTableBody.innerHTML = '';
+
+  // Group submissions by sector
+  const sectorGroups = {};
+  submissions.forEach((submission, index) => {
+    const sector = submission.sector;
+    if (!sectorGroups[sector]) {
+      sectorGroups[sector] = [];
     }
+    // Preserve stable index for edit actions
+    sectorGroups[sector].push({ ...submission, __idx: index });
+  });
+
+  // Create rows for each sector group with merged cells
+  let rowNumber = 1;
+  Object.keys(sectorGroups).forEach(sector => {
+    const group = sectorGroups[sector];
+
+    group.forEach((item, index) => {
+      const row = document.createElement('tr');
+      row.setAttribute('data-index', String(item.__idx));
+
+      // S.No cell
+      const sNoCell = document.createElement('td');
+      sNoCell.style.padding = '8px';
+      sNoCell.style.borderBottom = '1px solid var(--border)';
+      sNoCell.style.textAlign = 'center';
+      sNoCell.style.verticalAlign = 'top';
+      if (index === 0) {
+        sNoCell.textContent = rowNumber;
+        sNoCell.rowSpan = group.length;
+      } else {
+        sNoCell.style.display = 'none';
+      }
+      row.appendChild(sNoCell);
+
+      // Sector cell
+      const sectorCell = document.createElement('td');
+      sectorCell.style.padding = '8px';
+      sectorCell.style.borderBottom = '1px solid var(--border)';
+      sectorCell.style.verticalAlign = 'top';
+      if (index === 0) {
+        sectorCell.textContent = sector;
+        sectorCell.rowSpan = group.length;
+      } else {
+        sectorCell.style.display = 'none';
+      }
+      row.appendChild(sectorCell);
+
+      // Proposal name
+      const proposalCell = document.createElement('td');
+      proposalCell.style.padding = '8px';
+      proposalCell.style.borderBottom = '1px solid var(--border)';
+      proposalCell.textContent = item.proposal;
+      row.appendChild(proposalCell);
+
+      // Estimated cost
+      const costCell = document.createElement('td');
+      costCell.style.padding = '8px';
+      costCell.style.borderBottom = '1px solid var(--border)';
+      costCell.style.textAlign = 'right';
+      costCell.textContent = fmtINR(Math.round(item.cost)).replace(/\s/g, ' ');
+      row.appendChild(costCell);
+
+      // Locality
+      const localityCell = document.createElement('td');
+      localityCell.style.padding = '8px';
+      localityCell.style.borderBottom = '1px solid var(--border)';
+      localityCell.textContent = item.locality;
+      row.appendChild(localityCell);
+
+      // Priority
+      const priorityCell = document.createElement('td');
+      priorityCell.style.padding = '8px';
+      priorityCell.style.borderBottom = '1px solid var(--border)';
+      priorityCell.style.textAlign = 'center';
+      priorityCell.textContent = String(item.priority);
+      row.appendChild(priorityCell);
+
+      // Work Image
+      const imageCell = document.createElement('td');
+      imageCell.style.padding = '8px';
+      imageCell.style.borderBottom = '1px solid var(--border)';
+      imageCell.style.textAlign = 'center';
+      if (item.workImage) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(item.workImage);
+        img.style.width = '50px';
+        img.style.height = '50px';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '4px';
+        img.style.cursor = 'pointer';
+        img.title = 'Click to view full size';
+
+        img.addEventListener('click', () => {
+          const modal = document.createElement('div');
+          modal.style.position = 'fixed';
+          modal.style.top = '0';
+          modal.style.left = '0';
+          modal.style.width = '100%';
+          modal.style.height = '100%';
+          modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+          modal.style.display = 'flex';
+          modal.style.justifyContent = 'center';
+          modal.style.alignItems = 'center';
+          modal.style.zIndex = '1000';
+          modal.style.cursor = 'pointer';
+
+          const fullImg = document.createElement('img');
+          fullImg.src = img.src;
+          fullImg.style.maxWidth = '90%';
+          fullImg.style.maxHeight = '90%';
+          fullImg.style.borderRadius = '8px';
+
+          modal.appendChild(fullImg);
+          document.body.appendChild(modal);
+          modal.addEventListener('click', () => {
+            document.body.removeChild(modal);
+          });
+        });
+
+        imageCell.appendChild(img);
+      } else {
+        imageCell.textContent = 'No image';
+        imageCell.style.color = '#64748b';
+      }
+      row.appendChild(imageCell);
+
+      // Detailed Report
+      const reportCell = document.createElement('td');
+      reportCell.style.padding = '8px';
+      reportCell.style.borderBottom = '1px solid var(--border)';
+      reportCell.style.textAlign = 'center';
+      if (item.detailedReport) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(item.detailedReport);
+        link.target = '_blank';
+        link.textContent = 'View Report';
+        link.style.color = '#2563eb';
+        link.style.textDecoration = 'none';
+        link.style.fontSize = '12px';
+        reportCell.appendChild(link);
+      } else {
+        reportCell.textContent = 'No report';
+        reportCell.style.color = '#64748b';
+      }
+      row.appendChild(reportCell);
+
+     
+
+      // Actions
+      const actionsCell = document.createElement('td');
+      actionsCell.style.padding = '8px';
+      actionsCell.style.borderBottom = '1px solid var(--border)';
+      actionsCell.style.textAlign = 'center';
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Edit';
+      editBtn.style.padding = '4px 8px';
+      editBtn.style.fontSize = '12px';
+      editBtn.style.backgroundColor = '#2563eb';
+      editBtn.style.color = 'white';
+      editBtn.style.border = 'none';
+      editBtn.style.borderRadius = '4px';
+      editBtn.style.cursor = 'pointer';
+      editBtn.addEventListener('click', () => editSubmission(item.__idx));
+
+      actionsCell.appendChild(editBtn);
+      row.appendChild(actionsCell);
+
+       // ✅ Status (New Column)
+      const statusCell = document.createElement('td');
+      statusCell.style.padding = '8px';
+      statusCell.style.borderBottom = '1px solid var(--border)';
+      statusCell.style.textAlign = 'center';
+      statusCell.style.color = 'var(--accent-2)';
+      statusCell.style.fontWeight = '500';
+      statusCell.textContent = item.status || 'Yet to Forward';
+      row.appendChild(statusCell);
+
+      // ✅ Remarks (New Column)
+      const remarksCell = document.createElement('td');
+      remarksCell.style.padding = '8px';
+      remarksCell.style.borderBottom = '1px solid var(--border)';
+      remarksCell.textContent = item.remarks || '—';
+      row.appendChild(remarksCell);
+
+      submissionTableBody.appendChild(row);
+    });
+
+    rowNumber++;
+  });
+}
 
     function editSubmission(index) {
       const submission = submissions[index];
@@ -693,150 +890,280 @@
       });
     }
 
-    // Commissioner functionality
-    function loadCommissionerData() {
-      commissionerTableBody.innerHTML = '';
+    //Commissioner functionality
+    // function loadCommissionerData() {
+    //   commissionerTableBody.innerHTML = '';
       
-      forwardedSubmissions.forEach((submission, index) => {
-        const row = document.createElement('tr');
-        row.setAttribute('data-submission-id', String(submission.id));
+    //   forwardedSubmissions.forEach((submission, index) => {
+    //     const row = document.createElement('tr');
+    //     row.setAttribute('data-submission-id', String(submission.id));
         
-        const cells = [
-          index + 1,
-          submission.sector,
-          submission.proposal,
-          fmtINR(Math.round(submission.cost)).replace(/\s/g,' '),
-          submission.locality,
-          submission.priority,
-          submission.crNumber || 'N/A',
-          submission.crDate || 'N/A',
-          submission.status
-        ];
+    //     const cells = [
+    //       index + 1,
+    //       submission.sector,
+    //       submission.proposal,
+    //       fmtINR(Math.round(submission.cost)).replace(/\s/g,' '),
+    //       submission.locality,
+    //       submission.priority,
+    //       submission.crNumber || 'N/A',
+    //       submission.crDate || 'N/A',
+    //       submission.status
+    //     ];
         
-        cells.forEach((cellData) => {
-          const cell = document.createElement('td');
-          cell.style.padding = '8px';
-          cell.style.borderBottom = '1px solid var(--border)';
-          cell.textContent = cellData;
-          row.appendChild(cell);
-        });
+    //     cells.forEach((cellData) => {
+    //       const cell = document.createElement('td');
+    //       cell.style.padding = '8px';
+    //       cell.style.borderBottom = '1px solid var(--border)';
+    //       cell.textContent = cellData;
+    //       row.appendChild(cell);
+    //     });
         
-        // Actions cell
-        const actionsCell = document.createElement('td');
-        actionsCell.style.padding = '8px';
-        actionsCell.style.borderBottom = '1px solid var(--border)';
-        actionsCell.style.textAlign = 'center';
+    //     // Actions cell
+    //     const actionsCell = document.createElement('td');
+    //     actionsCell.style.padding = '8px';
+    //     actionsCell.style.borderBottom = '1px solid var(--border)';
+    //     actionsCell.style.textAlign = 'center';
         
-        // Helper function to create styled buttons
-        const createActionButton = (text, color, onClick) => {
-          const btn = document.createElement('button');
-          btn.textContent = text;
-          btn.style.padding = '4px 8px';
-          btn.style.fontSize = '12px';
-          btn.style.color = 'white';
-          btn.style.border = 'none';
-          btn.style.borderRadius = '4px';
-          btn.style.marginRight = '8px';
+    //     // Helper function to create styled buttons
+    //     const createActionButton = (text, color, onClick) => {
+    //       const btn = document.createElement('button');
+    //       btn.textContent = text;
+    //       btn.style.padding = '4px 8px';
+    //       btn.style.fontSize = '12px';
+    //       btn.style.color = 'white';
+    //       btn.style.border = 'none';
+    //       btn.style.borderRadius = '4px';
+    //       btn.style.marginRight = '8px';
           
-          // Determine if button should be disabled
-          const isDisabled = submission.status === 'Approved' || submission.status === 'Rejected';
-          btn.disabled = isDisabled;
-          btn.style.backgroundColor = isDisabled ? '#94a3b8' : color;
-          btn.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+    //       // Determine if button should be disabled
+    //       const isDisabled = submission.status === 'Approved' || submission.status === 'Rejected';
+    //       btn.disabled = isDisabled;
+    //       btn.style.backgroundColor = isDisabled ? '#94a3b8' : color;
+    //       btn.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
           
-          if (!isDisabled && onClick) {
-            btn.addEventListener('click', onClick);
-          }
+    //       if (!isDisabled && onClick) {
+    //         btn.addEventListener('click', onClick);
+    //       }
           
-          // Set appropriate tooltip
-          if (isDisabled) {
-            btn.title = `Action disabled - submission is ${submission.status.toLowerCase()}`;
-          }
+    //       // Set appropriate tooltip
+    //       if (isDisabled) {
+    //         btn.title = `Action disabled - submission is ${submission.status.toLowerCase()}`;
+    //       }
           
-          return btn;
-        };
+    //       return btn;
+    //     };
         
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Edit';
-        editBtn.style.padding = '4px 8px';
-        editBtn.style.fontSize = '12px';
-        editBtn.style.color = 'white';
-        editBtn.style.border = 'none';
-        editBtn.style.borderRadius = '4px';
-        editBtn.style.marginRight = '8px';
+    //     const editBtn = document.createElement('button');
+    //     editBtn.textContent = 'Edit';
+    //     editBtn.style.padding = '4px 8px';
+    //     editBtn.style.fontSize = '12px';
+    //     editBtn.style.color = 'white';
+    //     editBtn.style.border = 'none';
+    //     editBtn.style.borderRadius = '4px';
+    //     editBtn.style.marginRight = '8px';
 
-        // Determine if button should be disabled
-        const isEditDisabled = submission.status === 'Verified' || 
-                             submission.status === 'Approved' || 
-                             submission.status === 'Rejected';
+    //     // Determine if button should be disabled
+    //     const isEditDisabled = submission.status === 'Verified' || 
+    //                          submission.status === 'Approved' || 
+    //                          submission.status === 'Rejected';
 
-        editBtn.disabled = isEditDisabled;
-        editBtn.style.backgroundColor = isEditDisabled ? '#94a3b8' : '#2563eb';
-        editBtn.style.cursor = isEditDisabled ? 'not-allowed' : 'pointer';
-        editBtn.style.opacity = isEditDisabled ? '0.6' : '1';
+    //     editBtn.disabled = isEditDisabled;
+    //     editBtn.style.backgroundColor = isEditDisabled ? '#94a3b8' : '#2563eb';
+    //     editBtn.style.cursor = isEditDisabled ? 'not-allowed' : 'pointer';
+    //     editBtn.style.opacity = isEditDisabled ? '0.6' : '1';
 
-        // Set appropriate tooltip based on status
-        if (submission.status === 'Verified') {
-          editBtn.title = 'Editing disabled - item is verified';
-        } else if (submission.status === 'Approved') {
-          editBtn.title = 'Editing disabled - item is approved';
-        } else if (submission.status === 'Rejected') {
-          editBtn.title = 'Editing disabled - item is rejected';
+    //     // Set appropriate tooltip based on status
+    //     if (submission.status === 'Verified') {
+    //       editBtn.title = 'Editing disabled - item is verified';
+    //     } else if (submission.status === 'Approved') {
+    //       editBtn.title = 'Editing disabled - item is approved';
+    //     } else if (submission.status === 'Rejected') {
+    //       editBtn.title = 'Editing disabled - item is rejected';
+    //     }
+
+    //     if (!isEditDisabled) {
+    //       editBtn.addEventListener('click', () => showEditablePreview(submission));
+    //     }
+        
+    //     actionsCell.appendChild(editBtn);
+        
+    //     // Add approve/reject buttons for verified items; if already approved/rejected disable both
+    //     console.log('Submission status:', submission.status);
+    //     if (submission.status === 'Verified' || submission.status === 'Approved' || submission.status === 'Rejected') {
+    //       console.log('Adding approve/reject buttons for verified/approved/rejected submission');
+          
+    //       // Approve button
+    //       const approveBtn = document.createElement('button');
+    //       approveBtn.textContent = 'Approve';
+    //       approveBtn.style.padding = '4px 8px';
+    //       approveBtn.style.fontSize = '12px';
+    //       approveBtn.style.backgroundColor = submission.status === 'Approved' ? '#94a3b8' : '#22c55e';
+    //       approveBtn.style.color = 'white';
+    //       approveBtn.style.border = 'none';
+    //       approveBtn.style.borderRadius = '4px';
+    //       approveBtn.style.marginRight = '8px';
+    //       approveBtn.style.cursor = submission.status === 'Approved' || submission.status === 'Rejected' ? 'not-allowed' : 'pointer';
+    //       if (submission.status === 'Approved' || submission.status === 'Rejected') {
+    //         approveBtn.disabled = true;
+    //         approveBtn.title = submission.status === 'Approved' ? 'Already approved' : 'Item rejected';
+    //       } else {
+    //         approveBtn.addEventListener('click', () => approveSubmission(submission.id));
+    //       }
+    //       actionsCell.appendChild(approveBtn);
+
+    //       // Reject button
+    //       const rejectBtn = document.createElement('button');
+    //       rejectBtn.textContent = 'Reject';
+    //       rejectBtn.style.padding = '4px 8px';
+    //       rejectBtn.style.fontSize = '12px';
+    //       rejectBtn.style.backgroundColor = submission.status === 'Rejected' ? '#94a3b8' : '#ef4444';
+    //       rejectBtn.style.color = 'white';
+    //       rejectBtn.style.border = 'none';
+    //       rejectBtn.style.borderRadius = '4px';
+    //       rejectBtn.style.cursor = submission.status === 'Approved' || submission.status === 'Rejected' ? 'not-allowed' : 'pointer';
+    //       if (submission.status === 'Approved' || submission.status === 'Rejected') {
+    //         rejectBtn.disabled = true;
+    //         rejectBtn.title = submission.status === 'Rejected' ? 'Already rejected' : 'Item approved';
+    //       } else {
+    //         rejectBtn.addEventListener('click', () => rejectSubmission(submission.id));
+    //       }
+    //       actionsCell.appendChild(rejectBtn);
+    //     }
+    //     row.appendChild(actionsCell);
+        
+    //     commissionerTableBody.appendChild(row);
+    //   });
+    // }
+
+    function loadCommissionerData() {
+  const commissionerTableBody = document.getElementById('commissionerTableBody');
+  const approvedTableBody = document.getElementById('approvedTableBody');
+  const rejectedTableBody = document.getElementById('rejectedTableBody');
+
+  // Clear all tables
+  commissionerTableBody.innerHTML = '';
+  approvedTableBody.innerHTML = '';
+  rejectedTableBody.innerHTML = '';
+
+  // Filter data
+  const reviewItems = forwardedSubmissions.filter(sub => sub.status !== 'Approved' && sub.status !== 'Rejected');
+  const approvedItems = forwardedSubmissions.filter(sub => sub.status === 'Approved');
+  const rejectedItems = forwardedSubmissions.filter(sub => sub.status === 'Rejected');
+
+  // Helper function to create data rows
+  const createRow = (submission, index, includeActions = true) => {
+    const row = document.createElement('tr');
+    row.setAttribute('data-submission-id', String(submission.id));
+
+    const cells = [
+      index + 1,
+      submission.sector,
+      submission.proposal,
+      fmtINR(Math.round(submission.cost)).replace(/\s/g, ' '),
+      submission.locality,
+      submission.priority,
+      submission.crNumber || 'N/A',
+      submission.crDate || 'N/A',
+      submission.status
+    ];
+
+    cells.forEach(cellData => {
+      const cell = document.createElement('td');
+      cell.style.padding = '8px';
+      cell.style.borderBottom = '1px solid var(--border)';
+      cell.textContent = cellData;
+      row.appendChild(cell);
+    });
+
+    if (includeActions) {
+      const actionsCell = document.createElement('td');
+      actionsCell.style.padding = '8px';
+      actionsCell.style.borderBottom = '1px solid var(--border)';
+      actionsCell.style.textAlign = 'center';
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Edit';
+      editBtn.style.padding = '4px 8px';
+      editBtn.style.fontSize = '12px';
+      editBtn.style.color = 'white';
+      editBtn.style.border = 'none';
+      editBtn.style.borderRadius = '4px';
+      editBtn.style.marginRight = '8px';
+
+      const isEditDisabled =
+        submission.status === 'Verified' ||
+        submission.status === 'Approved' ||
+        submission.status === 'Rejected';
+
+      editBtn.disabled = isEditDisabled;
+      editBtn.style.backgroundColor = isEditDisabled ? '#94a3b8' : '#2563eb';
+      editBtn.style.cursor = isEditDisabled ? 'not-allowed' : 'pointer';
+      editBtn.style.opacity = isEditDisabled ? '0.6' : '1';
+
+      if (!isEditDisabled) {
+        editBtn.addEventListener('click', () => showEditablePreview(submission));
+      }
+      actionsCell.appendChild(editBtn);
+
+      // Approve/Reject logic
+      if (submission.status === 'Verified' || submission.status === 'Approved' || submission.status === 'Rejected') {
+        const approveBtn = document.createElement('button');
+        approveBtn.textContent = 'Approve';
+        approveBtn.style.padding = '4px 8px';
+        approveBtn.style.fontSize = '12px';
+        approveBtn.style.backgroundColor = submission.status === 'Approved' ? '#94a3b8' : '#22c55e';
+        approveBtn.style.color = 'white';
+        approveBtn.style.border = 'none';
+        approveBtn.style.borderRadius = '4px';
+        approveBtn.style.marginRight = '8px';
+        approveBtn.disabled = submission.status === 'Approved' || submission.status === 'Rejected';
+        approveBtn.style.cursor = approveBtn.disabled ? 'not-allowed' : 'pointer';
+        if (!approveBtn.disabled) {
+          approveBtn.addEventListener('click', () => approveSubmission(submission.id));
         }
+        actionsCell.appendChild(approveBtn);
 
-        if (!isEditDisabled) {
-          editBtn.addEventListener('click', () => showEditablePreview(submission));
+        const rejectBtn = document.createElement('button');
+        rejectBtn.textContent = 'Reject';
+        rejectBtn.style.padding = '4px 8px';
+        rejectBtn.style.fontSize = '12px';
+        rejectBtn.style.backgroundColor = submission.status === 'Rejected' ? '#94a3b8' : '#ef4444';
+        rejectBtn.style.color = 'white';
+        rejectBtn.style.border = 'none';
+        rejectBtn.style.borderRadius = '4px';
+        rejectBtn.disabled = submission.status === 'Approved' || submission.status === 'Rejected';
+        rejectBtn.style.cursor = rejectBtn.disabled ? 'not-allowed' : 'pointer';
+        if (!rejectBtn.disabled) {
+          rejectBtn.addEventListener('click', () => rejectSubmission(submission.id));
         }
-        
-        actionsCell.appendChild(editBtn);
-        
-        // Add approve/reject buttons for verified items; if already approved/rejected disable both
-        console.log('Submission status:', submission.status);
-        if (submission.status === 'Verified' || submission.status === 'Approved' || submission.status === 'Rejected') {
-          console.log('Adding approve/reject buttons for verified/approved/rejected submission');
-          
-          // Approve button
-          const approveBtn = document.createElement('button');
-          approveBtn.textContent = 'Approve';
-          approveBtn.style.padding = '4px 8px';
-          approveBtn.style.fontSize = '12px';
-          approveBtn.style.backgroundColor = submission.status === 'Approved' ? '#94a3b8' : '#22c55e';
-          approveBtn.style.color = 'white';
-          approveBtn.style.border = 'none';
-          approveBtn.style.borderRadius = '4px';
-          approveBtn.style.marginRight = '8px';
-          approveBtn.style.cursor = submission.status === 'Approved' || submission.status === 'Rejected' ? 'not-allowed' : 'pointer';
-          if (submission.status === 'Approved' || submission.status === 'Rejected') {
-            approveBtn.disabled = true;
-            approveBtn.title = submission.status === 'Approved' ? 'Already approved' : 'Item rejected';
-          } else {
-            approveBtn.addEventListener('click', () => approveSubmission(submission.id));
-          }
-          actionsCell.appendChild(approveBtn);
+        actionsCell.appendChild(rejectBtn);
+      }
 
-          // Reject button
-          const rejectBtn = document.createElement('button');
-          rejectBtn.textContent = 'Reject';
-          rejectBtn.style.padding = '4px 8px';
-          rejectBtn.style.fontSize = '12px';
-          rejectBtn.style.backgroundColor = submission.status === 'Rejected' ? '#94a3b8' : '#ef4444';
-          rejectBtn.style.color = 'white';
-          rejectBtn.style.border = 'none';
-          rejectBtn.style.borderRadius = '4px';
-          rejectBtn.style.cursor = submission.status === 'Approved' || submission.status === 'Rejected' ? 'not-allowed' : 'pointer';
-          if (submission.status === 'Approved' || submission.status === 'Rejected') {
-            rejectBtn.disabled = true;
-            rejectBtn.title = submission.status === 'Rejected' ? 'Already rejected' : 'Item approved';
-          } else {
-            rejectBtn.addEventListener('click', () => rejectSubmission(submission.id));
-          }
-          actionsCell.appendChild(rejectBtn);
-        }
-        row.appendChild(actionsCell);
-        
-        commissionerTableBody.appendChild(row);
-      });
+      row.appendChild(actionsCell);
     }
+
+    return row;
+  };
+
+  // Fill main table (submitted/verified)
+  reviewItems.forEach((submission, index) => {
+    commissionerTableBody.appendChild(createRow(submission, index, true));
+  });
+
+  // Fill approved table
+  approvedItems.forEach((submission, index) => {
+    approvedTableBody.appendChild(createRow(submission, index, false));
+  });
+
+  // Fill rejected table
+  rejectedItems.forEach((submission, index) => {
+    rejectedTableBody.appendChild(createRow(submission, index, false));
+  });
+}
+
+
+
+
     
     function showEditablePreview(submission) {
       previewContent.innerHTML = `

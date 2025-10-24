@@ -214,6 +214,8 @@
                     <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Work Image</th>
                     <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Detailed Report</th>
                     <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Actions</th>
+                    <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Status</th>
+                    <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Remarks</th>
                   </tr>
                 </thead>
                 <tbody id="submissionTableBody"></tbody>
@@ -266,7 +268,7 @@
           </div>
           <div id="forwardSuccess" class="banner hidden" style="margin-top:12px;">Forwarded to department.</div>
         </div>
-        <div class="field">
+        <!-- <div class="field">
           <label>Submitted Works for Review</label>
           <div style="overflow:auto;">
             <table id="commissionerTable" style="width:100%; border-collapse:collapse;">
@@ -287,7 +289,79 @@
               <tbody id="commissionerTableBody"></tbody>
             </table>
           </div>
-        </div>
+
+          
+        </div> -->
+<div class="field">
+  <label>Submitted Works for Review</label>
+  <div style="overflow:auto;">
+    <table id="commissionerTable" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">S.No</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Sector</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Proposal</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Cost</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Locality</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Priority</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">CR Number</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">CR Date</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Status</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="commissionerTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ✅ Approved Works Table -->
+<div class="field" style="margin-top: 40px;">
+  <label>Approved Works</label>
+  <div style="overflow:auto;">
+    <table id="approvedTable" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">S.No</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Sector</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Proposal</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Cost</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Locality</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Priority</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">CR Number</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">CR Date</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Status</th>
+        </tr>
+      </thead>
+      <tbody id="approvedTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ✅ Rejected Works Table -->
+<div class="field" style="margin-top: 40px;">
+  <label>Rejected Works</label>
+  <div style="overflow:auto;">
+    <table id="rejectedTable" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">S.No</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Sector</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Proposal</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Cost</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Locality</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Priority</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">CR Number</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">CR Date</th>
+          <th style="text-align:left; border-bottom:1px solid var(--border); padding:8px;">Status</th>
+        </tr>
+      </thead>
+      <tbody id="rejectedTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+
       </div>
     </div>
 
